@@ -1,11 +1,65 @@
-pub fn blur(infile: String, outfile: String) {
-    let img = image::open(infile).expect("Failed to open INFILE.");
-    let img2 = img.blur(2.0);
-    img2.save(outfile).expect("Failed writing OUTFILE.");
+//     // **OPTION**
+//     // Crop -- see the crop() function below
+
+//     // **OPTION**
+//     // Rotate -- see the rotate() function below
+
+//     // **OPTION**
+//     // Invert -- see the invert() function below
+
+//     // **OPTION**
+//     // Grayscale -- see the grayscale() function below
+
+//     // **OPTION**
+//     // Generate -- see the generate() function below -- this should be sort of like "fractal()"!
+
+//     // For everything else...
+//     _ => {
+//         print_usage_and_exit();
+//     }
+// }
+
+use image::DynamicImage;
+
+fn save_with_exit(image: &DynamicImage, path: &str) {
+    image.save(path).expect("Failed writing OUTFILE.")
+}
+
+fn open_with_exit(path: &str) -> DynamicImage {
+    image::open(path).expect("Failed to open INFILE.")
+}
+
+pub fn blur(infile: &str, outfile: &str, depth: &f32) {
+    let img = open_with_exit(&infile);
+    let img_processed = img.blur(*depth);
+    save_with_exit(&img_processed, &outfile);
+}
+
+pub fn brighten(infile: &str, outfile: &str, value: &i32) {
+    let img = open_with_exit(&infile);
+    let img_processed = img.brighten(*value);
+    save_with_exit(&img_processed, &outfile);
+}
+
+pub fn crop(infile: &str, outfile: &str, x: &u32, y: &u32, width: &u32, height: &u32) {
+    let mut img = open_with_exit(infile);
+    let img_processed = img.crop(*x, *y, *width, *height);
+    save_with_exit(&img_processed, outfile);
+}
+
+pub fn rotate(infile: &str, outfile: &str, value: &u32) {
+    let img = open_with_exit(infile);
+    let img_processed: DynamicImage = match *value {
+        90 => img.rotate90(),
+        180 => img.rotate180(),
+        270 => img.rotate270(),
+        _ => img,
+    };
+    save_with_exit(&img_processed, outfile);
 }
 
 // This code was adapted from https://github.com/PistonDevelopers/image
-pub fn fractal(outfile: String) {
+pub fn fractal(outfile: &str) {
     let width = 800;
     let height = 800;
 
