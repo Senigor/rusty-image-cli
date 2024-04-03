@@ -93,6 +93,27 @@ enum Commands {
         #[arg(short, long, value_name = "VALUE", value_parser=["90", "180", "270"])]
         value: String,
     },
+
+    /// Invert image
+    Invert {
+        /// Path to the input file
+        #[arg(short, long, value_name = "INFILE", value_hint = ValueHint::FilePath)]
+        infile: String,
+
+        /// Path to the output file
+        #[arg(short, long, value_name = "OUTFILE", value_hint = ValueHint::FilePath)]
+        outfile: String,
+    },
+    /// Grayscale image
+    Grayscale {
+        /// Path to the input file
+        #[arg(short, long, value_name = "INFILE", value_hint = ValueHint::FilePath)]
+        infile: String,
+
+        /// Path to the output file
+        #[arg(short, long, value_name = "OUTFILE", value_hint = ValueHint::FilePath)]
+        outfile: String,
+    },
 }
 
 fn main() {
@@ -149,6 +170,20 @@ fn main() {
                 infile, outfile, value
             );
             commands::rotate(infile, outfile, &value.parse::<u32>().unwrap());
+        }
+        Some(Commands::Invert { infile, outfile }) => {
+            println!(
+                "Executing invert command with infile: {}, outfile: {}",
+                infile, outfile
+            );
+            commands::invert(infile, outfile);
+        }
+        Some(Commands::Grayscale { infile, outfile }) => {
+            println!(
+                "Executing grayscale command with infile: {}, outfile: {}",
+                infile, outfile
+            );
+            commands::grayscale(infile, outfile);
         }
         None => {
             println!("Provide correct subcommand. If you are lost, do not hesitate to use --help!")

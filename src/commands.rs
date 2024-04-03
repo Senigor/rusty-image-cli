@@ -1,24 +1,3 @@
-//     // **OPTION**
-//     // Crop -- see the crop() function below
-
-//     // **OPTION**
-//     // Rotate -- see the rotate() function below
-
-//     // **OPTION**
-//     // Invert -- see the invert() function below
-
-//     // **OPTION**
-//     // Grayscale -- see the grayscale() function below
-
-//     // **OPTION**
-//     // Generate -- see the generate() function below -- this should be sort of like "fractal()"!
-
-//     // For everything else...
-//     _ => {
-//         print_usage_and_exit();
-//     }
-// }
-
 use image::DynamicImage;
 
 fn save_with_exit(image: &DynamicImage, path: &str) {
@@ -58,6 +37,18 @@ pub fn rotate(infile: &str, outfile: &str, value: &u32) {
     save_with_exit(&img_processed, outfile);
 }
 
+pub fn invert(infile: &str, outfile: &str) {
+    let mut img = open_with_exit(infile);
+    img.invert();
+    save_with_exit(&img, outfile);
+}
+
+pub fn grayscale(infile: &str, outfile: &str) {
+    let img = open_with_exit(infile);
+    let img_processed = img.grayscale();
+    save_with_exit(&img_processed, outfile);
+}
+
 // This code was adapted from https://github.com/PistonDevelopers/image
 pub fn fractal(outfile: &str) {
     let width = 800;
@@ -93,3 +84,21 @@ pub fn fractal(outfile: &str) {
 
     imgbuf.save(outfile).unwrap();
 }
+
+// **SUPER CHALLENGE FOR LATER** - Let's face it, you don't have time for this during class.
+//
+// Make all of the subcommands stackable!
+//
+// For example, if you run:
+//
+//   cargo run infile.png outfile.png blur 2.5 invert rotate 180 brighten 10
+//
+// ...then your program would:
+// - read infile.png
+// - apply a blur of 2.5
+// - invert the colors
+// - rotate the image 180 degrees clockwise
+// - brighten the image by 10
+// - and write the result to outfile.png
+//
+// Good luck!
