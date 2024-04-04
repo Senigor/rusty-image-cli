@@ -130,3 +130,20 @@ rusty_image_cli grayscale -i input.png -o output.png
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+
+## TBD
+
+[ ] Chain subcommands. Considering the following chain:
+
+```sh
+rusty_image_cli blur -i=input.png -o=output.png -d=2.0 invert rotate -v=180 brighten -v=10
+```
+
+The program will:
+
+1. Read `input.png`
+2. Apply a blur of 2.0
+3. Invert the colors
+4. Rotate the image 180 degrees clockwise
+5. Brighten the image by 10
+6. Write the result to `output.png`
