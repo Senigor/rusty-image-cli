@@ -101,6 +101,32 @@ Rotate an image by a specified angle.
 rusty_image_cli rotate -i input.png -o output.png -v 90
 ```
 
+### Invert Command
+
+Invert an image.
+
+| Argument          | Description              |
+| ----------------- | ------------------------ |
+| `-i`, `--infile`  | Path to the input file.  |
+| `-o`, `--outfile` | Path to the output file. |
+
+```sh
+rusty_image_cli invert -i input.png -o output.png
+```
+
+### Grayscale Command
+
+Make an image fully grey.
+
+| Argument          | Description              |
+| ----------------- | ------------------------ |
+| `-i`, `--infile`  | Path to the input file.  |
+| `-o`, `--outfile` | Path to the output file. |
+
+```sh
+rusty_image_cli grayscale -i input.png -o output.png
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
